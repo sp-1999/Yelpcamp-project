@@ -1,0 +1,80 @@
+<% include partials/header %>
+<div class="container">
+        <div class="row">
+                <div class="col-md-3 infolist">
+                        <h3 style="color:#f0f0f0;">Trolltunga</h3>
+                        <div class="list-group">
+                                <li class="list-group-item listnana">
+                                        <h4>Location:</h4>
+                                        <p>Hardanger, Norway</p>
+                                </li>
+                                <li class="list-group-item listnana">
+                                        <h4>Price ($/Night):</h4>
+                                        <p>100</p>
+                                </li>         
+                                <li class="list-group-item listnana">
+                                <h4>Amenities:</h4>
+                                <ul>
+                                                                                
+                                        <li>water</li>
+                                
+                                        <li> food</li>
+                                
+                                        <li> parking</li>
+                                
+                                        <li> cellular network</li>
+                                                                                
+                                </ul>
+                                </li>
+                                <li class="list-group-item listnana">
+                                        <h4>Booking Window:</h4>
+                                        <p>June-September</p>
+                                </li>    
+                        </div>
+                </div>
+                <div class="col-md-9">
+                        <div class='thumbnail'>
+                                <img src="<%= campground.image %>" class="img-responsive" >
+                                <div class="caption-full">
+                                        <h3 class="pull-right">$9.00/night</h3>
+                                        <h3 style="display:inline-block;"><a href=""><%= campground.name %></a></h3>  
+                                        <p id='p1'><%= campground.description %></p>
+                                        <p>
+                                                <em>Submitted By <%= campground.author.username.charAt(0).toUpperCase()+campground.author.username.slice(1); %></em> 
+                                        </p>
+                                <% if(curruser && campground.author.id.equals(curruser._id)){ %>
+                                        <a class="btn btn-warning btn-xs" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
+                                        <form style="display:inline-block;" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                                                <button class="btn btn-danger btn-xs">Delete</button>
+                                        </form>
+                                <% } %>
+                                        
+                                </div>
+                        </div> 
+                        <div class="well">
+                                <div class="text-right">
+                                        <a class=" btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Leave Comment</a>
+                                </div>
+                                <hr>
+                                <% campground.comments.forEach(function(comment){ %>
+                                        <div class='row'>
+                                                <div class="col-md-12">
+                                                        <strong><%= comment.author.username %></strong>
+                                                        <span class="pull-right">10 days ago</span>
+                                                        <p><%=comment.text%></p>
+                                <% if(curruser && comment.author.id.equals(curruser._id)){ %>
+                                        <a class="btn btn-xs btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                                        <form style="display:inline-block;" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                                <button class="btn btn-danger btn-xs">Delete</button>
+                                        </form>
+                                <% } %>
+                                                </div>
+                                        </div> 
+                                        
+                                <% }) %>
+                        </div>        
+                </div>
+        </div>
+</div>
+<% include partials/footer %>
+

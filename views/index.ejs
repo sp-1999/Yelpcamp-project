@@ -1,0 +1,27 @@
+<% include partials/header %>
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome to BookMyTour!</h1>
+            <p>View our hand-picked tour for you from all over the world! Click on any tour to view information.</p><p>
+            </p><p><a class="btn btn-primary btn-large" href="/campgrounds/new">Add a New Tours</a></p>
+        </div>
+    </header>
+    <div class="container">
+            <br>
+        <div class="row" style="display:flex; flex-wrap:wrap;">
+            
+            <% campgrounds.forEach(function(campground){ %>
+                <div class='col-md-3 col-sm-6'>
+                    <a href="/campgrounds/<%=campground._id %>" class="thumbnail">
+                        <img src="<%= campground.image %>" style="height: 200px;width:300px;">
+                        <h4 class="text-center"><%= campground.name %></h4>
+                    </a>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+<% include partials/footer %>
+    
+
